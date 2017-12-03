@@ -1,7 +1,7 @@
 FROM resin/rpi-raspbian:jessie
 MAINTAINER Jens Remus <jens.remus@gmail.com>
 
-ENV LMS_VERSION 7.9.0
+ENV LMS_VERSION 7.9.1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-RUN wget --progress=dot:mega -O /tmp/lms.deb http://downloads.slimdevices.com/LogitechMediaServer_v7.9.0/logitechmediaserver_7.9.0_arm.deb \
+RUN wget --progress=dot:mega -O /tmp/lms.deb $(wget -q -O - "http://www.mysqueezebox.com/update/?version=$LMS_VERSION&revision=1&geturl=1&os=debarm") \
  && dpkg -i /tmp/lms.deb \
  && rm /tmp/lms.deb
 
